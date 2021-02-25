@@ -1,0 +1,36 @@
+body {
+  background-color: lightslategray;
+}
+
+h1 {
+  color: lightcoral;
+}
+
+h2 {
+  color: black;
+}
+
+#ordered-lists{
+  color: navy;
+}
+
+#main_title{
+    color: #ffc107;
+}
+
+
+.card:hover {
+  box-shadow: 0 10px 10px 0 rgba(0,0,0,2);
+}
+
+.card {
+  background-color: #2c3034;
+}
+
+body {
+    color: white;
+}
+
+a {
+  color: white;
+}

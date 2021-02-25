@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/mainstyle.css">
+        <title>three</title>
+       <span style="padding-left:20px" ></span>
+    <script src="../static/js/jquery-3.5.1.js"></script>
+
+  </head>
+  <body>
+  <h1 id="main_title" style="text-align:center">three</h1>
+<span style="padding-left:60px" ></span>
+    <div class="container">
+
+
+<center>
+    <div id="stopWatch">0</div>
+
+<button id="startButton">Start</button>
+<button id="resetButton">Reset</button>
+
+    <script>
+        var i = 1;
+$("#startButton").click(function (e) {
+    setInterval(function () {
+        $("#stopWatch").html(i);
+        i++;
+    }, 1000);
+});
+    </script>
+    <p>
+
+    </p>
+    <center>
+
+            <script>
+    $(document).ready(function(){
+      $("#flip").click(function(){
+        $("#panel").slideDown("slow");
+      });
+    });
+    </script>
+
+        <style>
+#panel, #flip {
+  padding: 5px;
+  text-align: center;
+  background-color: mediumslateblue;
+  border: solid 1px #c3c3c3;
+}
+
+#panel {
+  padding: 50px;
+  display: none;
+}
+</style>
+
+        <div id="flip">Click to slide down this purple panel</div>
+<div id="panel">slide successful!</div>
+
+
+
+
+    </div>
+  <p></p>
+  <center>
+  <p><a href="/home.html"> Back to Main Page</a></p>
+      </center>
+
+  </body>
+</html>

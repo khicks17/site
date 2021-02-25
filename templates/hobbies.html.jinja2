@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/mainstyle.css">
+    <title>Hobbies</title>
+       <span style="padding-left:20px" ></span>
+    <script src="../static/js/jquery-3.5.1.js"></script>
+    <body style = "text-align:center;">
+
+    </body>
+  </head>
+  <body>
+  <h1 id="main_title" style="text-align:center">Hobbies</h1>
+<span style="padding-left:60px" ></span>
+    <div class="container">
+        <p id = "GFG_UP" style =
+            "font-size: 19px; font-weight: bold;">
+        </p>
+
+        <div id = "GFG_DIV">
+              <p id="first">
+	Some of my hobbies are...
+
+            <ul>
+            {% for hobby in hobbies %}
+            <li>{{hobby}}</li>
+            {% endfor %}
+            </ul>
+      </p>
+
+        </div>
+
+
+
+        <button onClick = "GFG_Fun()">
+            click here
+        </button>
+
+        <p id = "GFG_DOWN" style =
+            "color: #0a53be; font-size: 24px; font-weight: bold;">
+        </p>
+
+        <!-- Script to remove HTML element -->
+        <script>
+            var up = document.getElementById('GFG_UP');
+            var down = document.getElementById('GFG_DOWN');
+            var div = document.getElementById('GFG_DIV');
+            up.innerHTML = "Click on button to make my hobbies disappear.";
+
+            function GFG_Fun() {
+                div.parentNode.removeChild(div);
+                down.innerHTML = "Now it's gone.";
+            }
+        </script>
+
+        <br>
+            <img src="../static/img/image1.jpg" alt="ski" width=450" height=300">
+        <br><p></p>
+            <img src="../static/img/image2.JPG" alt="utv" width="450" height=300">
+        <br><p></p>
+            <img src="../static/img/image3.jpg" alt="alaska" width="300" height=450">
+<p></p>
+        <br>
+
+    </div>
+  <p><a href="/home.html"> Back to Main Page</a></p>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/mainstyle.css">
+        <title>two</title>
+       <span style="padding-left:20px" ></span>
+    <script src="../static/js/jquery-3.5.1.js"></script>
+    <script>
+
+      $(document).ready(function(){
+	  // ALL YOUR CODE HERE
+	  $("p1").click(function(){
+	      $(this).css("background","#0c63e4");
+	      console.log("paragraph was clicked!");
+	  })
+	  //END YOUR CODE
+      });
+
+            $(document).ready(function(){
+	  // ALL YOUR CODE HERE
+	  $("p2").click(function(){
+	      $(this).css("background","lightgreen");
+	      console.log("paragraph was clicked!");
+	  })
+	  //END YOUR CODE
+      });
+
+
+
+    </script>
+  </head>
+  <center>
+  <body>
+  <h1 id="main_title" style="text-align:center">two</h1>
+    <div class="container">
+      <p1 id="first">
+	Click Me to see my favorite color!
+      </p1>
+        <p></p>
+      <p2 id="second">
+	I watch Westworld.
+
+          {% if show == 'westworld' %}
+     <p> Westworld is my favorite show. </p>
+    {% endif %}
+
+      </p2>
+    </div>
+  <p></p>
+  <p><a href="/home.html"> Back to Main Page</a></p>
+  </body>
+
+    </center>
+</html>
