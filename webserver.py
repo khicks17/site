@@ -33,12 +33,13 @@ def main():
                          loader=jinja2.FileSystemLoader('templates'))
 
     app.add_routes([web.get('/home.html', title),
+                    web.get('/',title),
                     web.get('/hobbies.html.jinja2', hobbies),
                     web.get('/2.html.jinja2', two),
                     web.get('/3.html.jinja2', three),
                     web.static('/static','static',show_index=True)])
     print("Welcome to Webserver 1.0")
-    web.run_app(app, host="127.0.0.1", port=3000)
+    web.run_app(app, host="0.0.0.0", port=80)
 
 
 main()
