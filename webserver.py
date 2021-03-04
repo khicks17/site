@@ -3,11 +3,16 @@
 from aiohttp import web
 import aiohttp_jinja2
 import jinja2
-from random import randint
+import sqlite3
 
 @aiohttp_jinja2.template('Title_page.html.jinja2')
 async def title(request):
-    return {}
+    conn = sqlite3.connect('table.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM tweets ORDER BY likes DESC")
+    results = cursor.fetchall()
+    conn.close()
+    return {"tweets": results}
 
 @aiohttp_jinja2.template('hobbies.html.jinja2')
 async def hobbies(request):
@@ -27,6 +32,7 @@ async def three(request):
 
 
 def main():
+
     app = web.Application()
 
     aiohttp_jinja2.setup(app,
