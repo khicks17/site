@@ -1,4 +1,3 @@
-# Webserver!
 
 from aiohttp import web
 import aiohttp_jinja2
@@ -7,12 +6,7 @@ import sqlite3
 
 @aiohttp_jinja2.template('Title_page.html.jinja2')
 async def title(request):
-    conn = sqlite3.connect('table.db')
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM tweets ORDER BY likes DESC")
-    results = cursor.fetchall()
-    conn.close()
-    return {"tweets": results}
+    return {}
 
 @aiohttp_jinja2.template('hobbies.html.jinja2')
 async def hobbies(request):
@@ -30,6 +24,14 @@ async def two(request):
 async def three(request):
     return {}
 
+@aiohttp_jinja2.template('tweets.html.jinja2')
+async def tweets(request):
+    conn = sqlite3.connect('table.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM tweets ORDER BY likes DESC")
+    results = cursor.fetchall()
+    conn.close()
+    return {"tweets": results}
 
 def main():
 
@@ -43,9 +45,12 @@ def main():
                     web.get('/hobbies.html.jinja2', hobbies),
                     web.get('/2.html.jinja2', two),
                     web.get('/3.html.jinja2', three),
+                    web.get('/tweets.html.jinja2', tweets),
                     web.static('/static','static',show_index=True)])
     print("Welcome to Webserver 1.0")
-    web.run_app(app, host="0.0.0.0", port=80)
+
+    web.run_app(app, host="127.0.0.1", port=3000)
+    "web.run_app(app, host="0.0.0.0", port=80)"
 
 
 main()
