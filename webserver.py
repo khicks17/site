@@ -33,6 +33,10 @@ async def tweets(request):
     conn.close()
     return {"tweets": results}
 
+async def add_tweet(request)
+    return web.Response(text="Added Tweet!")
+
+
 def main():
 
     app = web.Application()
@@ -46,11 +50,10 @@ def main():
                     web.get('/2.html.jinja2', two),
                     web.get('/3.html.jinja2', three),
                     web.get('/tweets.html.jinja2', tweets),
+                    web.post('/tweet', add_tweet)
                     web.static('/static','static',show_index=True)])
     print("Welcome to Webserver 1.0")
 
     web.run_app(app, host="127.0.0.1", port=3000)
-    "web.run_app(app, host="0.0.0.0", port=80)"
-
 
 main()
