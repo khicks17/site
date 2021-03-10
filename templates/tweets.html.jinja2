@@ -1,7 +1,27 @@
 
+<html>
+  <head>
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/mainstyle.css">
+        <title>tweets</title>
+       <span style="padding-left:20px" ></span>
+  </head>
+
+  <body>
+  <h1 id="main_title" style="text-align:center">tweets</h1>
+    <div class="container">
 
 <p>Here are some tweets...
-    {%for tweet in results %}
-    <li>{{ tweet[0] }}</li>
+    <ul>{%for tweet in results %}
+    <li>{{ tweet[0] }}<a href="/like?id={{ tweet[4] }}" class="btn-primary"> Like it!</a></li>
 {% endfor %}
+</ul>
 </p>
+
+    </div>
+  <p></p>
+  <p><a href="/home.html"> Back to Main Page</a></p>
+  </body>
+
+</html>
+

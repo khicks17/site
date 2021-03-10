@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="../static/css/mainstyle.css">
     <title>Kyle's Page</title>
     <script src="../static/js/jquery-3.5.1.js">
+        </script>
     <script type="javascript">
         console.log("Hello World")
     </script>
@@ -19,16 +20,16 @@
 <h1 id="main_title" style="text-align:center">Welcome to my page!</h1>
 <span style="padding-left:60px" ></span>
 
+<center>
 <form action="/tweet" method="post">
-
-    <input type="text">
+    <input type="text" name="content">
     <input type="submit" value="tweet it!">
 </form>
 
-<center>
+<p></p>
 <div class="card" style="width: 18rem;">
   <div class="card-body">
-    <h5 class="card-title">Hobbies</h5>
+    <h5 class="card-title">Hobbies Updated</h5>
     <p class="card-text">these are my hobbies...</p>
     <a href="hobbies.html.jinja2" class="btn btn-primary">click here</a>
   </div>
@@ -56,8 +57,9 @@
     <p class="card-text">check out some tweets</p>
     <a href="tweets.html.jinja2" class="btn btn-primary">click here</a>
   </div>
-</div><span style="padding-left:20px"></span>
     </center>
+</div><span style="padding-left:20px"></span>
+
 
 </body>
 </html>
