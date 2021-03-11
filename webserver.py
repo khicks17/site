@@ -76,6 +76,6 @@ def main():
                     web.static('/static','static',show_index=True)])
     print("Welcome to Webserver 2.1")
 
-    web.run_app(app, host="0.0.0.0", port=0)
+    web.run_app(app, host="0.0.0.0", port=80)
 
 main()
