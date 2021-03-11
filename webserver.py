@@ -32,7 +32,6 @@ async def tweets(request):
     cursor.execute("SELECT * FROM tweets ORDER BY likes DESC")
     results = cursor.fetchall()
     print(results)
-    conn.close()
     return {"tweets": results}
 
 async def add_tweet(request):
@@ -50,10 +49,11 @@ async def add_tweet(request):
 async def like(request):
     conn = sqlite3.connect('table.db')
     cursor = conn.cursor()
-    tweet_id = request.query[id]
+    tweet_id = request.query['id']
     cursor.execute("SELECT likes FROM tweets WHERE id=%s" % tweet_id)
     like_count = cursor.fetchone()[0]
     cursor.execute("UPDATE tweets SET likes=%d WHERE id=%s" % (like_count +1, tweet_id))
+    conn.commit()
     print(request.query['id'])
     raise web.HTTPFound('/')
 
@@ -67,15 +67,15 @@ def main():
 
     app.add_routes([web.get('/home.html', title),
                     web.get('/',title),
-                    web.get('/hobbies.html.jinja2', hobbies),
-                    web.get('/2.html.jinja2', two),
-                    web.get('/3.html.jinja2', three),
-                    web.get('/tweets.html.jinja2', tweets),
+                    web.get('/hobbies.html', hobbies),
+                    web.get('/2.html', two),
+                    web.get('/3.html', three),
+                    web.get('/tweets.html', tweets),
                     web.get('/like',like),
                     web.post('/tweet', add_tweet),
                     web.static('/static','static',show_index=True)])
     print("Welcome to Webserver 2.1")
 
-    web.run_app(app, host="127.0.0.1", port=3001)
+    web.run_app(app, host="0.0.0.0", port=0)
 
 main()

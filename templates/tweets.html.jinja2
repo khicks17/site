@@ -6,22 +6,23 @@
         <title>tweets</title>
        <span style="padding-left:20px" ></span>
   </head>
-
+<center>
   <body>
   <h1 id="main_title" style="text-align:center">tweets</h1>
     <div class="container">
 
-<p>Here are some tweets...
-    <ul>{%for tweet in results %}
-    <li>{{ tweet[0] }}<a href="/like?id={{ tweet[4] }}" class="btn-primary"> Like it!</a></li>
+<p>Here are some tweets...click the button to like one!
+    <ul>{%for tweet in tweets %}
+    <li>{{ tweet[0] }}   <a href="/like?id={{ tweet[4] }}" class="btn-primary"> Likes: {{ tweet[2] }}</a></li>
 {% endfor %}
 </ul>
 </p>
-
     </div>
+
+
   <p></p>
   <p><a href="/home.html"> Back to Main Page</a></p>
   </body>
-
+</center>
 </html>
 
