@@ -3,6 +3,34 @@
   <head>
     <link rel="stylesheet" href="../static/css/bootstrap.css">
     <link rel="stylesheet" href="../static/css/mainstyle.css">
+      <script
+  src="https://code.jquery.com/jquery-3.6.0.js"
+  integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+  crossorigin="anonymous"></script>
+<script type="text/javascript">
+        $(document).ready(function () {
+            //listen for click events on any element with class "like-btn"
+            $(".like-btn").click(function () {
+                //a like button was clicked, but which one????
+                let btn = $(this);
+                let tweet_id = btn.attr("data-tweet-id");
+                console.log("You liked tweet id: ", tweet_id);
+                $.get("/like.json?id="+tweet_id, function (data){
+                    //update the like span content
+                    let like_count = $('#tweet-like-count-'+tweet_id);
+                    like_count.fadeOut(200);
+                    setTimeout(function(){
+                        //now like count is hidden
+                        like_count.html(data.like_count);
+                        //now show it again
+                        like_count.fadeIn(1000);
+                    },200)
+
+                })
+            })
+        })
+
+    </script>
         <title>tweets</title>
        <span style="padding-left:20px" ></span>
   </head>
@@ -13,9 +41,14 @@
 
 <p>Here are some tweets...click the button to like one!
     <ul>{%for tweet in tweets %}
-    <li>{{ tweet[0] }}   <a href="/like?id={{ tweet[4] }}" class="btn-primary"> Likes: {{ tweet[2] }}</a></li>
-{% endfor %}
-</ul>
+        <li>{{ tweet[0] }}  Tweeted From: {{ tweet[3] }}
+
+        <span class="btn like-btn btn-primary" data-tweet-id="{{ tweet[4] }}"> Like it! </span>
+        <span style="color:white" id="tweet-like-count-{{ tweet[4] }}"> {{ tweet[2] }} </span>
+        </li>
+        {% endfor %}
+    </ul>
+
 </p>
     </div>
 
