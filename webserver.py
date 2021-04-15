@@ -1,11 +1,12 @@
 from aiohttp import web
 import aiohttp_jinja2
+from random import randint
 import jinja2
 import sqlite3
+import secrets
+import hashlib
 import requests
 import socket
-
-
 
 #@aiohttp_jinja2.template('Title_page.html.jinja2')
 async def title(request):
@@ -29,6 +30,61 @@ async def two(request):
 @aiohttp_jinja2.template('3.html.jinja2')
 async def three(request):
     return {}
+
+@aiohttp_jinja2.template('login.html.jinja2')
+async def show_login(request):
+
+    raise web.HTTPFound('/')
+
+async def logout(request):
+    global logged_in_secret
+    response = aiohttp_jinja2.render_template('login.html.jinja2', request, {})
+    response.cookies['logged_in'] = ''
+    logged_in_secret = "--invalid--"
+    return response
+
+async def login(request):
+    data = await request.post()
+    # check if username and password match an entry in the user table
+    conn = sqlite3.connect('tweet_db.db')
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT salt FROM users WHERE username=?", (data['username'],))
+    result = cursor.fetchone()
+    if result is None:
+        raise web.HTTPFound('/login')
+    salt = result[0]
+    salted_password = data['password'] + salt
+    hashed_password = hashlib.md5(salted_password.encode('ascii')).hexdigest()
+    print("using salt: ", salt)
+    print("Using hashed password: ", hashed_password)
+    cursor.execute("SELECT COUNT(*) FROM users WHERE username=? AND password=?",
+                   (data['username'], hashed_password))
+    query_result = cursor.fetchone()
+
+    user_exists = query_result[0]
+    if user_exists == 0:  # no good, try again!
+        raise web.HTTPFound('/login')
+
+    # everything checks out, give them a cookie :)
+    response = web.Response(text="congrats!",
+                            status=302,
+                            headers={'Location': "/"})
+    # generate a new cookie value!
+    logged_in_secret = secrets.token_hex(8)
+    response.cookies['logged_in'] = logged_in_secret
+    cursor.execute("UPDATE users SET cookie=? WHERE username=?", (logged_in_secret, data['username']))
+    conn.commit()
+    # store the cookie in our own database
+
+    conn.close()
+
+    return response
+
+@aiohttp_jinja2.template('login.html.jinja2')
+async def show_login(request):
+    return {}
+
 
 @aiohttp_jinja2.template('tweets.html.jinja2')
 async def tweets(request):
@@ -101,8 +157,10 @@ def main():
     aiohttp_jinja2.setup(app,
                          loader=jinja2.FileSystemLoader('templates'))
 
-    app.add_routes([web.get('/home.html', title),
-                    web.get('/',title),
+    app.add_routes([web.get('/',title),
+                    web.get('/login', show_login),
+                    web.get('/logout', logout),
+                    web.post('/login', login),
                     web.get('/hobbies.html', hobbies),
                     web.get('/2.html', two),
                     web.get('/3.html', three),
@@ -114,7 +172,7 @@ def main():
                     web.static('/static','static',show_index=True)])
     print("Welcome to Webserver 2.1")
 
-    web.run_app(app, host="0.0.0.0", port=80)
+    web.run_app(app, host="127.0.0.1", port=3000)
 
 main()
 
